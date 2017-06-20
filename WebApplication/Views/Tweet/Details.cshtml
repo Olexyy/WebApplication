@@ -1,0 +1,49 @@
+﻿@model WebApplication.Models.Tweet
+
+<div>
+    <h4>Tweet</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TweetUser)
+        </dt>
+
+        <dd>
+            @Html.TweetUserFor(Model.TweetUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Created)
+        </dd>
+    </dl>
+    @Html.ActionLink("Edit", "Edit", "Tweet", new { id = Model.Id }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Delete", "Delete", "Tweet", new { id = Model.Id }, new { @class = "btn btn-default" })
+    @if (Model.TweetComments.Count > 0)
+    {
+        <h4>Comments:</h4>
+        <hr />
+    }
+    @foreach (var comment in Model.TweetComments)
+    {
+        @Html.TweetCommentFor(comment);
+        @Html.ActionLink("Edit", "Edit", "TweetComment", new { id = comment.Id }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Details", "Details", "TweetComment", new { id = comment.Id }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Delete", "Delete", "TweetComment", new { id = comment.Id }, new { @class = "btn btn-default" })
+        <hr />
+    }
+    @Html.ActionLink("Add comment", "Create", "TweetComment", new { id = Model.Id }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Back to List", "Index", null, null, new { @class = "btn btn-default" })
+</div>

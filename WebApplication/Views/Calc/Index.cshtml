@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Calc Page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Simple calc</h2>
+        <p>
+            Создайте приложение, которое будет обслуживать следующие запросы выполняя арифметические 
+            операции – Calc/Add/10/20 в ответ возвращается страница с текстом 30 Calc/Mul/5/5 в ответ 
+            возвращается страница с текстом 25 Calc/Sub/10/3 в ответ возвращается страница с текстом
+             7 Calc/Div/10/2 в ответ возвращается страница с текстом 5 
+        </p> 
+        <h2>Try out:</h2>
+        <p><a class="btn btn-default" href="/Calc/Add/5/5">Calc/Add/5/5 &raquo;</a></p>
+        <p><a class="btn btn-default" href="/Calc/Sub/10/3">Calc/Sub/10/3 &raquo;</a></p>
+        <p><a class="btn btn-default" href="/Calc/Mult/11/4">Calc/Mult/11/4 &raquo;</a></p>
+        <p><a class="btn btn-default" href="/Calc/Div/22/2">Calc/Div/22/2 &raquo;</a></p>
+        <p class="text-danger">fail case:</p>
+        <p><a class="btn btn-default" href="/Calc/Div/22/0">Calc/Div/22/0 &raquo;</a></p>
+    </div>
+</div>

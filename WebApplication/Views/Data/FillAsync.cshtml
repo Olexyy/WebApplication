@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = ViewBag.Message;
+}
+
+<h2>@ViewBag.Message</h2>
+<hr />
+
+    <input type="text" id="name" /> 
+    <label for="name">Name</label>
+    <input type="text" id="age" />
+    <label for="name">Age</label>
+
+    <div>
+        <a id="sendRequest" href="#">Ajax </a>
+
+        <div id="result"></div>
+    </div>
+
+@section Scripts {
+    <script>
+            jQuery(document).ready(function ($) {
+                $("#sendRequest").click(function () {
+                    // Получение данных с помощью GET запроса
+                    $.ajax({
+                        url: "/Data/AjaxAction",
+                        type: "POST",
+                        data: { name: $('#name').val(), age: $('#age').val() },
+                        success: function (data) {
+                            $("#result")
+                                .append("Name: " + data.Name + "<br />")
+                                .append("Age: " + data.Age + "<br />")
+                        }
+                    });
+                });
+            });
+    </script>
+}
