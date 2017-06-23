@@ -15,6 +15,7 @@ namespace WebApplication.Models
         public int FollowedUserId { get; set; }
         [ForeignKey("FollowedUserId")]
         public virtual TweetUser FollowedUser { get; set; }
+        public DateTime FollowTime { get; set; }
     }
     public partial class TweetDbContext : DbContext
     {

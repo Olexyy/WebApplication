@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication.Models
 {
     public interface IAuthorized
     {
-        int TweetUserId { get; set; }
+        int? TweetUserId { get; set; }
     }
     public abstract class TweetModel
     {
+        [Key]
         public int Id { get; set; }
         public DateTime Created { get; set; }
         public DateTime Changed { get; set; }

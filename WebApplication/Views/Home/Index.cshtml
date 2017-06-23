@@ -13,11 +13,16 @@
         <p>
             @Html.ActionLink("1. Task: Calculator", "Index", "Calc")<br />
             @Html.ActionLink("2. Task: Submit form", "Fill", "Data")<br />
+            @Html.ActionLink("3. Task: Ajax submit", "FillAsync", "Data")<br />
+            <hr />
             @Html.ActionLink("Final. Task: Simple twitter", "Index", "Tweet")<br />
+            <hr />
         </p>
         <p>
-            <a class="btn btn-default" href="/Calc/Index">Calc &raquo;</a>
-            <a class="btn btn-default" href="/Data/Fill">Submit form &raquo;</a>
+            @Html.ActionLink(@"1. Task: Calculator >>", "Index", "Calc", null, new { @class = "btn btn-default" })
+            @Html.ActionLink(@"2. Task: Submit form >>", "Fill", "Data", null, new { @class = "btn btn-default" })
+            @Html.ActionLink(@"3. Task: Ajax submit >>", "FillAsync", "Data", null, new { @class = "btn btn-default" })
+            @Html.ActionLink(@"Final. Task: Simple twitter >>", "Index", "Tweet", null, new { @class = "btn btn-default" })
         </p>
     </div>
 </div>

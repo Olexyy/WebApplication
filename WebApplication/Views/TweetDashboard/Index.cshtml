@@ -1,0 +1,25 @@
+﻿@model WebApplication.Models.TweetUser
+
+<h1> Dashboard </h1>
+<hr />
+@if (Model.Tweets.Count == 0)
+{
+    <h4> No tweete in list </h4>
+}
+else
+{
+    <h4> User's tweets </h4>
+    @Html.TweetDashboardTable(Model)
+}
+<p>
+    @Html.ActionLink("New tweet", "Create", "Tweet", null, new { @class = "btn btn-default" })
+</p>
+<hr />
+<h4> User's statistics </h4>
+<p> Follows @Model.FollowedTweets.Count.ToString() tweets </p>
+<p> Follows @Model.FollowedUsers.Count.ToString() users </p>
+<p> Followed by @Model.Followers.Count.ToString() users </p>
+@Html.ActionLink("Browse tweets", "Index", "Tweet", null, new { @class = "btn btn-default" })
+@Html.ActionLink("Followed tweets", "Followed", "Tweet", null, new { @class = "btn btn-default" })
+@Html.ActionLink("Followed users", "Followed", "TweetUser", null, new { @class = "btn btn-default" })
+@Html.ActionLink("Followers", "Followers", "TweetUser", null, new { @class = "btn btn-default" })

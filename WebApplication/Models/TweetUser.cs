@@ -13,8 +13,14 @@ namespace WebApplication.Models
 {
     public class TweetUser : TweetModel
     {
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string Key { get; set; }
+        [StringLength(50)]
         public string Name { get; set; }
+        [EmailAddress]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string Email { get; set; }
         public bool Enabled { get; set; }
         public virtual ICollection<Tweet> Tweets { get; set; }
@@ -30,6 +36,8 @@ namespace WebApplication.Models
         }
         public bool IsAuthor(IAuthorized item)
         {
+            if (item == null)
+                return false;
             return this.Id == item.TweetUserId;
         }
     }

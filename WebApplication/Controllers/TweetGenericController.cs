@@ -41,6 +41,8 @@ namespace WebApplication.Controllers
                 }
             }
             this.IsAuthenticated = this.TweetUser != null;
+            this.ViewBag.TweetUser = this.TweetUser;
+            this.ViewBag.IsAuthenticated = this.IsAuthenticated;
         }
     }
 }

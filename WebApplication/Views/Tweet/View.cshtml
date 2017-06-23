@@ -1,0 +1,48 @@
+﻿@model WebApplication.Models.Tweet
+
+<div>
+    <h4>Tweet details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TweetUser)
+        </dt>
+
+        <dd>
+            @Html.TweetUserFor(Model.TweetUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Created)
+        </dd>
+    </dl>
+    <hr />
+    @if (Model.TweetMessages.Count > 0)
+    {
+        <h4>Messages:</h4>
+        <hr />
+    }
+    @foreach (var message in Model.TweetMessages)
+    {
+        <h3>@Html.TweetMessageFor(message)
+        <small>
+            author: @Html.TweetUserFor(message.TweetUser)
+            at: @Html.DisplayFor(i => message.Created)
+        </small></h3>
+        <hr />
+    }
+    @Html.ActionLink("Back", null, null, null, new { href = Request.UrlReferrer, @class = "btn btn-default" })
+</div>

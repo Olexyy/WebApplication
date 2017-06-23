@@ -1,0 +1,7 @@
+﻿
+@if (ViewBag.IsAuthenticated == true)
+{
+    <ul class="nav navbar-nav navbar-left">
+        <li>@Html.ActionLink("Dashboard", "Index", "TweetDashboard", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    </ul>
+}

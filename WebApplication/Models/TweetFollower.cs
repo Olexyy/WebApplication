@@ -10,9 +10,10 @@ namespace WebApplication.Models
     public class TweetFollower : TweetModel
     {
         public int TweetUserId { get; set; }
-        public virtual TweetUser TweetUser { get; set; }
         public int TweetId { get; set; }
+        public virtual TweetUser TweetUser { get; set; }
         public virtual Tweet Tweet { get; set; }
+        public DateTime FollowTime { get; set; }
     }
     public partial class TweetDbContext : DbContext
     {

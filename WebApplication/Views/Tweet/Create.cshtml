@@ -1,5 +1,4 @@
 ﻿@model WebApplication.Models.Tweet
-@{ ViewBag.Title = ViewBag.Message; }
 
 @using (Html.BeginForm()) 
 {
@@ -7,7 +6,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>@ViewBag.Message</h4>
+        <h4>Create tweet</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -46,7 +45,7 @@
 }
 
 <div>
-    @Html.ActionLink("All tweets", "Index", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("To Dashboard", "Index", "TweetDashboard", null, new { @class = "btn btn-default" })
 </div>
 
 @section Scripts {

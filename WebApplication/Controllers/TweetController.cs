@@ -12,7 +12,6 @@ namespace WebApplication.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            ViewBag.Message = "All tweets";
             IEnumerable<Tweet> tweets = this.Db.Tweets.Take(10);
             return View(tweets);
         }
@@ -21,7 +20,6 @@ namespace WebApplication.Controllers
         {
             if (!this.IsAuthenticated)
                 return View("Error");
-            ViewBag.Message = "Create tweet";
             return View(new Tweet());
         }
         [HttpPost]
@@ -36,7 +34,7 @@ namespace WebApplication.Controllers
                 tweet.TweetUser = this.TweetUser;
                 this.Db.Tweets.Add(tweet);
                 this.Db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "TweetDashboard");
             }
             return View("Error");
         }
@@ -49,12 +47,19 @@ namespace WebApplication.Controllers
             return View("Error");
         }
         [HttpGet]
+        public ActionResult View(int id)
+        {
+            Tweet tweet = this.Db.Tweets.Where(i => i.Id == id).FirstOrDefault();
+            if (tweet != null)
+                return View(tweet);
+            return View("Error");
+        }
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             if(this.IsAuthenticated)
             {
                 Tweet tweet = this.Db.Tweets.Where(i => i.Id == id).FirstOrDefault();
-                ViewBag.Message = "Edit tweet";
                 if (tweet != null && this.TweetUser.IsAuthor(tweet))
                     return View(tweet);
             }
@@ -70,7 +75,7 @@ namespace WebApplication.Controllers
                 tweet.UpdateTimeStamps();
                 this.Db.Entry<Tweet>(tweet).State = System.Data.Entity.EntityState.Modified;
                 this.Db.SaveChanges();
-                return RedirectToAction("Details", new { id = tweet.Id });
+                return RedirectToAction("Index", "TweetDashboard");
             }
             return View("Error");
         }
@@ -84,7 +89,7 @@ namespace WebApplication.Controllers
                 {
                     this.Db.Tweets.Remove(tweet);
                     this.Db.SaveChanges();
-                    return RedirectToAction("Details", new { id = tweet.Id });
+                    return RedirectToAction("Index", "TweetDashboard");
                 }
             }
             return View("Error");
