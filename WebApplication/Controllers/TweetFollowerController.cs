@@ -20,7 +20,7 @@ namespace WebApplication.Controllers
                     TweetFollower tweetFollower = new TweetFollower {
                         TweetId = id,
                         TweetUserId = this.TweetUser.Id,
-                        FollowTime = DateTime.Now };
+                        FollowTime = DateTime.Now, LastFollowTime = DateTime.Now };
                     tweetFollower.SetTimeStamps();
                     this.Db.TweetFollowers.Add(tweetFollower);
                     this.Db.SaveChanges();

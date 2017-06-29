@@ -11,13 +11,13 @@ namespace WebApplication.Controllers
 {
     public abstract class TweetGenericController : Controller
     {
-        protected TweetDbContext Db { get; set; }
-        protected bool IsAuthenticated { get; set; }
-        protected TweetUser TweetUser { get; set; }
+        public TweetDbContext Db { get; set; }
+        public bool IsAuthenticated { get; set; }
+        public TweetUser TweetUser { get; set; }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            this.Db = new TweetDbContext();
+            this.Db = TweetDbContext.Instance();
             if (this.User.Identity.IsAuthenticated)
             {
                 string id = this.User.Identity.GetUserId();

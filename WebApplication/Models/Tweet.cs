@@ -12,16 +12,22 @@ namespace WebApplication.Models
     {
         [Required]
         [StringLength(50)]
+        [UniqueTweetName]
         [Index(IsUnique =true)]
         public string Name { get; set; }
+        [Required]
+        [StringLength(200)]
+        public string Text { get; set; }
         public int? TweetUserId { get; set; }
+        public int? TweetChannelId { get; set; }
         public bool Enabled { get; set; }
         public virtual TweetUser TweetUser { get; set; }
-        public virtual ICollection<TweetMessage> TweetMessages { get; set; }
+        public virtual TweetChannel TweetChannel { get; set; }
+        public virtual ICollection<TweetComment> TweetComments { get; set; }
         public virtual ICollection<TweetFollower> TweetFollowers { get; set; }
         public Tweet()
         {
-            this.TweetMessages = new HashSet<TweetMessage>();
+            this.TweetComments = new HashSet<TweetComment>();
             this.TweetFollowers = new HashSet<TweetFollower>();
         }
         public bool HasFollower(int TweetUserId)

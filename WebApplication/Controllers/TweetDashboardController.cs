@@ -9,11 +9,10 @@ namespace WebApplication.Controllers
     public class TweetDashboardController : TweetGenericController
     {
         [HttpGet]
+        [TweetAuthorize]
         public ActionResult Index()
         {
-            if(this.IsAuthenticated)
-                return View(this.TweetUser);
-            return View("Error");
+            return View(this.TweetUser);
         }
     }
 }

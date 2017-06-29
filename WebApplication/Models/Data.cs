@@ -41,6 +41,9 @@ namespace WebApplication.Models
         public uint? Age { get; set; }
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+        [Required(ErrorMessage ="Is required")]
+        [IsOdd(ErrorMessage = "Value should be odd")]
+        public int Odd { get; set; }
         public Data()
         {
             List<SelectListItem> list = new List<SelectListItem>();

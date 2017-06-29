@@ -14,6 +14,7 @@ namespace WebApplication.Models
         public virtual TweetUser TweetUser { get; set; }
         public virtual Tweet Tweet { get; set; }
         public DateTime FollowTime { get; set; }
+        public DateTime LastFollowTime { get; set; }
     }
     public partial class TweetDbContext : DbContext
     {

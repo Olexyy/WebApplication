@@ -1,0 +1,9 @@
+﻿@model IEnumerable<WebApplication.Models.TweetChannel>
+
+@{ var user = @ViewBag.TweetUser as WebApplication.Models.TweetUser; }
+
+<h1>Tweet channels</h1>
+
+@foreach (var item in Model) {
+    @Html.TweetChannelCard(item, user)
+}

@@ -10,77 +10,82 @@ namespace WebApplication.Controllers
     public class TweetCommentController : TweetGenericController
     {
         [HttpGet]
+        [ReturnUrl(Set = true)]
+        [TweetAuthorize]
         public ActionResult Create(int id)
         {
-            TweetMessage tweetMessage = this.Db.TweetMessages.Where(i => i.Id == id).FirstOrDefault();
-            if(tweetMessage == null)
+            Tweet tweet = this.Db.Tweets.Where(i => i.Id == id).FirstOrDefault();
+            if(tweet == null)
                 return View("Error");
-            TweetComment tweetComment = new TweetComment { TweetMessageId = id, TweetMessage = tweetMessage };
+            TweetComment tweetComment = new TweetComment { TweetId = id, Tweet = tweet };
             return View(tweetComment);
         }
         [HttpPost]
+        [TweetAuthorize]
+        [ReturnUrl(Get = true)]
         [ValidateAntiForgeryToken]
         public ActionResult Create(TweetComment tweetComment)
         {
-            TweetMessage tweetMessage = this.Db.TweetMessages.Where(i => i.Id == tweetComment.TweetMessageId).FirstOrDefault();
+            Tweet tweet = this.Db.Tweets.Where(i => i.Id == tweetComment.TweetId).FirstOrDefault();
             // Author is not nessesary
-            if (this.IsAuthenticated)
-            {
-                if(!this.ModelState.IsValid)
-                    return View(tweetComment);
-                tweetComment.SetTimeStamps();
-                tweetComment.TweetUser = this.TweetUser;
-                this.Db.TweetComments.Add(tweetComment);
-                this.Db.SaveChanges();
-                return RedirectToAction("Details", "TweetMessage", new { id = tweetComment.TweetMessageId });
-            }
-            return View("Error");
+            if(!this.ModelState.IsValid)
+                return View(tweetComment);
+            tweetComment.SetTimeStamps();
+            tweetComment.TweetUser = this.TweetUser;
+            this.Db.TweetComments.Add(tweetComment);
+            this.Db.SaveChanges();
+            if (!String.IsNullOrEmpty(ViewBag.ReturnUrl))
+                return Redirect(ViewBag.ReturnUrl);
+            return RedirectToAction("Details", new { id = tweetComment.Id });
         }
         [HttpGet]
+        [TweetAuthorize]
         public ActionResult Details(int id)
         {
             TweetComment tweetComment = this.Db.TweetComments.Where(i => i.Id == id).FirstOrDefault();
-            if (this.IsAuthenticated && tweetComment != null && this.TweetUser.IsAuthor(tweetComment))
+            if (this.TweetUser.IsAuthor(tweetComment))
                 return View(tweetComment);
             return View("Error");
         }
         [HttpGet]
+        [TweetAuthorize]
+        [ReturnUrl(Set = true)]
         public ActionResult Edit(int id)
         {
-            if (this.IsAuthenticated)
-            {
-                TweetComment tweetComment = this.Db.TweetComments.Where(i => i.Id == id).FirstOrDefault();
-                if (tweetComment != null && this.TweetUser.IsAuthor(tweetComment))
-                    return View(tweetComment);
-            }
+            TweetComment tweetComment = this.Db.TweetComments.Where(i => i.Id == id).FirstOrDefault();
+            if (this.TweetUser.IsAuthor(tweetComment))
+                return View(tweetComment);
             return View("Error");
         }
         [HttpPost]
+        [TweetAuthorize]
+        [ReturnUrl(Get = true)]
         public ActionResult Edit(TweetComment tweetComment)
         {
-            if (this.IsAuthenticated && this.TweetUser.IsAuthor(tweetComment))
+            if (this.TweetUser.IsAuthor(tweetComment))
             {
                 if (!this.ModelState.IsValid)
                     return View(tweetComment);
                 tweetComment.UpdateTimeStamps();
                 this.Db.Entry<TweetComment>(tweetComment).State = System.Data.Entity.EntityState.Modified;
                 this.Db.SaveChanges();
+                if (!String.IsNullOrEmpty(ViewBag.ReturnUrl))
+                    return Redirect(ViewBag.ReturnUrl);
                 return RedirectToAction("Details", new { id = tweetComment.Id });
             }
             return View("Error");
         }
         [HttpGet]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, string returnUrl = null)
         {
-            if (this.IsAuthenticated)
+            TweetComment tweetComment = this.Db.TweetComments.Where(i => i.Id == id).FirstOrDefault();
+            if (this.TweetUser.IsAuthor(tweetComment))
             {
-                TweetComment tweetComment = this.Db.TweetComments.Where(i => i.Id == id).FirstOrDefault();
-                if (tweetComment != null && this.TweetUser.IsAuthor(tweetComment))
-                {
-                    this.Db.TweetComments.Remove(tweetComment);
-                    this.Db.SaveChanges();
-                    return RedirectToAction("Details", "TweetMessage", new { id = tweetComment.TweetMessageId });
-                }
+                this.Db.TweetComments.Remove(tweetComment);
+                this.Db.SaveChanges();
+                if (!String.IsNullOrEmpty(ViewBag.ReturnUrl))
+                    return Redirect(returnUrl);
+                return RedirectToAction("Details", "Tweet", new { id = tweetComment.TweetId });
             }
             return View("Error");
         }

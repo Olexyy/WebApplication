@@ -11,34 +11,31 @@ namespace WebApplication.Controllers
     {
         [HttpGet]
         public ActionResult Index()
-        {
-            IEnumerable<Tweet> tweets = this.Db.Tweets.Take(10);
+        { // TODO: pager
+            IEnumerable<Tweet> tweets = this.Db.Tweets;
             return View(tweets);
         }
         [HttpGet]
+        [TweetAuthorize]
         public ActionResult Create()
         {
-            if (!this.IsAuthenticated)
-                return View("Error");
             return View(new Tweet());
         }
         [HttpPost]
+        [TweetAuthorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Tweet tweet)
         {
-            if (this.IsAuthenticated)
-            {
-                if(!this.ModelState.IsValid)
-                    return View(tweet);
-                tweet.SetTimeStamps();
-                tweet.TweetUser = this.TweetUser;
-                this.Db.Tweets.Add(tweet);
-                this.Db.SaveChanges();
-                return RedirectToAction("Index", "TweetDashboard");
-            }
-            return View("Error");
+            if(!this.ModelState.IsValid)
+                return View(tweet);
+            tweet.SetTimeStamps();
+            tweet.TweetUser = this.TweetUser;
+            this.Db.Tweets.Add(tweet);
+            this.Db.SaveChanges();
+            return RedirectToAction("Index", "TweetDashboard");
         }
         [HttpGet]
+        [TweetAuthorize]
         public ActionResult Details(int id)
         {
             Tweet tweet = this.Db.Tweets.Where(i => i.Id == id).FirstOrDefault();
@@ -55,20 +52,19 @@ namespace WebApplication.Controllers
             return View("Error");
         }
         [HttpGet]
+        [TweetAuthorize]
         public ActionResult Edit(int id)
         {
-            if(this.IsAuthenticated)
-            {
-                Tweet tweet = this.Db.Tweets.Where(i => i.Id == id).FirstOrDefault();
-                if (tweet != null && this.TweetUser.IsAuthor(tweet))
-                    return View(tweet);
-            }
+            Tweet tweet = this.Db.Tweets.Where(i => i.Id == id).FirstOrDefault();
+            if (tweet != null && this.TweetUser.IsAuthor(tweet))
+                return View(tweet);
             return View("Error");
         }
         [HttpPost]
+        [TweetAuthorize]
         public ActionResult Edit(Tweet tweet)
         {
-            if (this.IsAuthenticated && this.TweetUser.IsAuthor(tweet))
+            if (this.TweetUser.IsAuthor(tweet))
             {
                 if (!this.ModelState.IsValid)
                     return View(tweet);
@@ -80,17 +76,15 @@ namespace WebApplication.Controllers
             return View("Error");
         }
         [HttpGet]
+        [TweetAuthorize]
         public ActionResult Delete(int id)
         {
-            if (this.IsAuthenticated)
+            Tweet tweet = this.Db.Tweets.Where(i => i.Id == id).FirstOrDefault();
+            if (tweet != null && this.TweetUser.IsAuthor(tweet))
             {
-                Tweet tweet = this.Db.Tweets.Where(i => i.Id == id).FirstOrDefault();
-                if (tweet != null && this.TweetUser.IsAuthor(tweet))
-                {
-                    this.Db.Tweets.Remove(tweet);
-                    this.Db.SaveChanges();
-                    return RedirectToAction("Index", "TweetDashboard");
-                }
+                this.Db.Tweets.Remove(tweet);
+                this.Db.SaveChanges();
+                return RedirectToAction("Index", "TweetDashboard");
             }
             return View("Error");
         }

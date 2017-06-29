@@ -1,0 +1,61 @@
+﻿@model WebApplication.Models.TweetChannel
+
+<div>
+    <h4>Tweet channel details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TweetUser)
+        </dt>
+
+        <dd>
+            @Html.TweetUserFor(Model.TweetUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Created)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Changed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Changed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Weight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Enabled)
+        </dt>
+
+        <dd>
+            @Html.TweetYesNoFor(Model.Enabled)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", null, new { id = Model.Id } , new { @class = "btn btn-default" } )
+    @Html.ActionLink("Back", null, null, null, new { href = Request.UrlReferrer, @class = "btn btn-default" })
+</p>

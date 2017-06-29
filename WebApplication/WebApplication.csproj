@@ -198,11 +198,17 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CalcController.cs" />
+    <Compile Include="Controllers\Cache.cs" />
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\Attributes\ReturnUrlAttribute.cs" />
+    <Compile Include="Controllers\Attributes\StatisticsAttribute.cs" />
+    <Compile Include="Controllers\Attributes\TweetAuthorizeAttribute.cs" />
+    <Compile Include="Controllers\TweetChannelController.cs" />
+    <Compile Include="Controllers\TweetUserFollowerController.cs" />
+    <Compile Include="Controllers\TweetChannelFollowerController.cs" />
     <Compile Include="Controllers\TweetFollowerController.cs" />
-    <Compile Include="Controllers\TweetMessageController.cs" />
     <Compile Include="Controllers\TweetCommentController.cs" />
     <Compile Include="Controllers\TweetController.cs" />
     <Compile Include="Controllers\TweetDashboardController.cs" />
@@ -212,23 +218,29 @@
     </Compile>
     <Compile Include="Helpers\TweetHelpers.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Attrubutes\UniqueTweetChannelNameAttribute.cs" />
+    <Compile Include="Models\Attrubutes\UniqueTweetNameAttribute.cs" />
+    <Compile Include="Models\Attrubutes\UniqueTweetUserAttribute.cs" />
     <Compile Include="Models\Data.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IsOddAttribute.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\TweetMessage.cs" />
+    <Compile Include="Models\TweetChannel.cs" />
+    <Compile Include="Models\TweetChannelFollower.cs" />
     <Compile Include="Models\TweetComment.cs" />
     <Compile Include="Models\Tweet.cs" />
     <Compile Include="Models\TweetDbContext.cs" />
     <Compile Include="Models\TweetModel.cs" />
     <Compile Include="Models\TweetUser.cs" />
     <Compile Include="Models\TweetFollower.cs" />
-    <Compile Include="Models\UserFollower.cs" />
+    <Compile Include="Models\TweetUserFollower.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-add.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="DB.PNG" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Content\bootstrap.min.css" />
@@ -251,7 +263,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="favicon.ico" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -297,11 +311,16 @@
     <Content Include="Views\Tweet\Edit.cshtml" />
     <Content Include="Views\TweetComment\Details.cshtml" />
     <Content Include="Views\TweetDashboard\Index.cshtml" />
-    <Content Include="Views\TweetMessage\Create.cshtml" />
-    <Content Include="Views\TweetMessage\Details.cshtml" />
-    <Content Include="Views\TweetMessage\Edit.cshtml" />
+    <Content Include="Views\TweetChannel\Create.cshtml" />
+    <Content Include="Views\TweetChannel\Details.cshtml" />
+    <Content Include="Views\TweetChannel\Edit.cshtml" />
     <Content Include="Views\Tweet\View.cshtml" />
     <Content Include="Views\Shared\_TweetDashboardPartial.cshtml" />
+    <Content Include="Views\Cache\Index.cshtml" />
+    <Content Include="Views\Cache\IndexPartial.cshtml" />
+    <Content Include="Views\Shared\Denied.cshtml" />
+    <Content Include="Views\TweetChannel\Index.cshtml" />
+    <Content Include="Views\TweetComment\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
