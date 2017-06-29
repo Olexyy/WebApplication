@@ -18,6 +18,7 @@ namespace WebApplication.Controllers
             string time = DateTime.Now.ToString();
             string record = String.Format("{0},{1},{2},{3}" + Environment.NewLine, client, time, controllerName, actionName);
             File.AppendAllText(logsPath, record);
+            filterContext.Controller.ViewBag.Statistics = File.ReadAllLines(logsPath);
         }
     }
 }

@@ -5,3 +5,8 @@
 <h3>@ViewBag.Message</h3>
 
 <p>Use this area to provide additional information.</p>
+<h2>Statistics:</h2>
+@foreach (var line in ViewBag.Statistics)
+{
+    <p>@line</p>
+}

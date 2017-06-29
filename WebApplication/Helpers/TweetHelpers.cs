@@ -112,7 +112,7 @@ namespace System.Web.Mvc
             {
                 html.AppendFormat(@"<a href = '{0}TweetUserFollower/Delete/{1}' class='btn btn-default btn-xs' title='Unfollow'>
                                 <span class='glyphicon glyphicon-remove' aria-hidden='true'></span>
-                                </a>", TweetHelpers.BasePath, user.FollowedUsers.First(i => i.FollowedTweetUserId == user.Id).Id);
+                                </a>", TweetHelpers.BasePath, user.FollowedUsers.First(i => i.FollowerTweetUserId == user.Id).Id);
             }
             return new MvcHtmlString(html.ToString());
         }

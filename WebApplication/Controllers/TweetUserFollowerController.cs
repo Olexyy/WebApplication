@@ -17,10 +17,10 @@ namespace WebApplication.Controllers
             if (tweetUser != null)
             {
                 TweetUserFollower tweetUserFollower = new TweetUserFollower {
-                    FollowedTweetUserId = this.TweetUser.Id,
-                    FollowedTweetUser = this.TweetUser,
-                    FollowerTweetUserId = tweetUser.Id,
-                    FollowerTweetUser = tweetUser,
+                    FollowedTweetUserId = tweetUser.Id,
+                    FollowedTweetUser = tweetUser,
+                    FollowerTweetUserId = this.TweetUser.Id,
+                    FollowerTweetUser = this.TweetUser,
                     FollowTime = DateTime.Now, LastFollowTime = DateTime.Now };
                 tweetUserFollower.SetTimeStamps();
                 this.Db.TweetUserFollowers.Add(tweetUserFollower);

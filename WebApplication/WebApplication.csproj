@@ -223,7 +223,7 @@
     <Compile Include="Models\Attrubutes\UniqueTweetUserAttribute.cs" />
     <Compile Include="Models\Data.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\IsOddAttribute.cs" />
+    <Compile Include="Models\Attrubutes\IsOddAttribute.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\TweetChannel.cs" />
     <Compile Include="Models\TweetChannelFollower.cs" />
